@@ -1,0 +1,101 @@
+paths:
+  /api/pets/:
+    get:
+      summary: Obtiene todas las mascotas
+      tags:
+        - Pets
+      responses:
+        "200":
+          description: Mascotas obtenidas correctamente
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#components/schemas/Pets'
+        "500":
+          description: Error del servidor
+    post:
+      summary: Crea una nueva mascota
+      tags:
+        - Pets
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#components/requestBodies/petInput'
+      responses:
+       "200":
+        description: Mascota creada correctamente
+        content:
+          application/json:
+            schema:
+              $ref: '#components/schemas/Pets'
+        "500":
+          description: Error del servidor
+
+components:
+  schemas:
+    Pets:
+      type: object
+      properties:
+        _id:
+          type: ObjectId
+          description: Id autogenerado por mongo
+        name: 
+          type: String
+          description: Nombre de la mascota
+        specie:
+          type: String
+          description: Especie de la mascota
+        birthDate:
+          type: Date
+          description: Fecha de nacimiento de la mascota
+        adopted:
+          type: Boolean
+          description: Define si la mascota fue o no adoptada
+        owner:
+          type: ObjectId
+          description: id del dueño de la mascota
+        image: 
+          type: String
+          description: Url de la imagen de la mascota
+      example:
+        _id: ObjectId('as9as8da90sdamnds')
+        name: Pepito
+        specie: Perro
+        birthDate: 10/11/2018
+        adopted: false
+        owner: ObjectId('os9asasdada8da90sdamnds')
+        image: https://imagen.com/mascota
+  requestBodies:
+    petInput:
+      type: object
+      properties:
+        name: 
+          type: String
+          description: Nombre de la mascota
+        specie:
+          type: String
+          description: Especie de la mascota
+        birthDate:
+          type: Date
+          description: Fecha de nacimiento de la mascota
+        adopted:
+          type: Boolean
+          description: Define si la mascota fue o no adoptada
+        owner:
+          type: ObjectId
+          description: id del dueño de la mascota
+        image: 
+          type: String
+          description: Url de la imagen de la mascota
+      example:
+        name: Pepito
+        specie: Perro
+        birthDate: 10/11/2018
+        adopted: false
+        owner: ObjectId('os9asasdada8da90sdamnds')
+        image: https://imagen.com/mascota
+
